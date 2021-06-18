@@ -1,0 +1,12 @@
+@charset "ISO-8859-1";
+
+body{
+	background-image: url("https://cdn.pixabay.com/photo/2020/05/16/19/30/lettuce-5178889_1280.jpg");
+	
+}
+
+h3{
+	text-decoration: blink;
+	font-style: italic;
+	color: orange;
+}
