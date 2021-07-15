@@ -7,6 +7,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.davos.core.dto.SellerDTO;
 import com.davos.core.entity.Seller;
 import com.davos.core.service.SellerService;
-import com.davos.core.service.impl.SellerServiceImpl;
 
 
 @RestController
@@ -49,12 +49,12 @@ public class SellerController {
 		return service.getAll();
 	}
 	
-	@GetMapping("/{name}")
+	@GetMapping("/byName/{name}")
 	public SellerDTO sellerByName(@PathVariable("name") String name){
 		return service.getByName(name);
 	}
 	
-	@GetMapping("/{id}")
+	@GetMapping("/byId/{id}")
 	public SellerDTO sellerById(@PathVariable("id") int id){
 		return service.getById(id);
 	}

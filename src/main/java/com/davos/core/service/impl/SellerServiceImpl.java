@@ -3,7 +3,6 @@ package com.davos.core.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class SellerServiceImpl implements SellerService{
 		List<SellerDTO> sellerDTOs = new ArrayList<>();
 		
 		for (Seller seller : sellers) {
-			sellerDTOs.add(mapper.sellerDTOToSeller(seller));
+			sellerDTOs.add(mapper.sellerToSellerDTO(seller));
 		}
 		
 		return sellerDTOs;
@@ -36,10 +35,10 @@ public class SellerServiceImpl implements SellerService{
 	}
 	
 	public SellerDTO getByName(String name) {
-		return mapper.sellerDTOToSeller(sellerRepository.findByName(name));
+		return mapper.sellerToSellerDTO(sellerRepository.findByName(name));
 	}
 	public SellerDTO getById(int id) {
-		return mapper.sellerDTOToSeller(sellerRepository.findById(id));
+		return mapper.sellerToSellerDTO(sellerRepository.findById(id));
 	}
 	
 	public boolean createOrUpdate(Seller seller) {

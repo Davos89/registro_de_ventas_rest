@@ -11,9 +11,9 @@ public interface SellerMapper {
 
 	@Mapping(source = "id", target = "id")
 	@Mapping(source = "name", target = "name")
-	SellerDTO sellerDTOToSeller(Seller seller);
+	SellerDTO sellerToSellerDTO(Seller seller);
 	
 	@Mapping(source = "id", target = "id")
 	@Mapping(source = "name", target = "name")
-	Seller sellerToSellerDTO(SellerDTO sellerDTO);
+	Seller sellerDTOToSeller(SellerDTO sellerDTO);
 }

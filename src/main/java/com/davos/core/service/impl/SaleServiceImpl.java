@@ -3,6 +3,7 @@ package com.davos.core.service.impl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,6 +134,8 @@ public class SaleServiceImpl implements SaleService {
 
 	private List<SaleDTO> saleToSaleDTOs(List<Sale> sales) {
 
+//		List<SaleDTO> saleDTOs = sales.
+		
 		List<SaleDTO> saleDTOs = new ArrayList<>();
 
 		for (Sale sale : sales) {
