@@ -7,59 +7,66 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.davos.core.entity.Seller;
-import com.davos.core.mapper.SellerMapper;
+import com.davos.core.http_errors.NullEntityException;
+import com.davos.core.http_errors.RecordNotFoundException;
 import com.davos.core.dto.SellerDTO;
 import com.davos.core.repository.SellerRepository;
 import com.davos.core.service.SellerService;
 
 @Service
-public class SellerServiceImpl implements SellerService{
+public class SellerServiceImpl implements SellerService {
 
 	@Autowired
 	private SellerRepository sellerRepository;
-	
-	@Autowired
-	private SellerMapper mapper;
-	
+
+
+	@Override
 	public List<SellerDTO> getAll() {
-		
+
 		List<Seller> sellers = sellerRepository.findAll();
 		List<SellerDTO> sellerDTOs = new ArrayList<>();
-		
+
 		for (Seller seller : sellers) {
-			sellerDTOs.add(mapper.sellerToSellerDTO(seller));
+			sellerDTOs.add(new SellerDTO(seller));
 		}
-		
+
 		return sellerDTOs;
+
+	}
+
+	@Override
+	public SellerDTO getSeller(String name) {
+		return new SellerDTO(sellerRepository.findByName(name));
+	}
+
+	@Override
+	public SellerDTO getSeller(int id) {
+		return new SellerDTO(sellerRepository.findById(id));
+	}
+
+	public void createOrUpdate(SellerDTO sellerDTO) {
+
+		Seller seller = sellerDTO.toSeller();
 		
-	}
-	
-	public SellerDTO getByName(String name) {
-		return mapper.sellerToSellerDTO(sellerRepository.findByName(name));
-	}
-	public SellerDTO getById(int id) {
-		return mapper.sellerToSellerDTO(sellerRepository.findById(id));
-	}
-	
-	public boolean createOrUpdate(Seller seller) {
-		try {
-			sellerRepository.save(seller);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		if (seller == null) {
+			throw new NullEntityException("Entity of type 'Seller.class' cannot be saved or updated because is null");
 		}
+
+		
+		sellerRepository.save(seller);
+
 	}
-	
-	public boolean delete(int id) {
-		try {
-			Seller seller = sellerRepository.findById(id);
-			sellerRepository.delete(seller);
-			
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+
+	@Override
+	public void delete(int id) {
+
+		Seller seller = sellerRepository.findById(id);
+
+		if (seller == null) {
+			throw new RecordNotFoundException("Entity of type 'Seller.class' cannot be deleted because doesn´t exists");
 		}
+
+		sellerRepository.delete(seller);
+
 	}
 }

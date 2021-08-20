@@ -3,20 +3,20 @@ package com.davos.core.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.davos.core.dto.CustomerDTO;
 import com.davos.core.entity.Customer;
 import com.davos.core.entity.Sale;
+import com.davos.core.http_errors.NullEntityException;
+import com.davos.core.http_errors.RecordNotFoundException;
 import com.davos.core.mapper.CustomerMapper;
 import com.davos.core.repository.CustomerRepository;
 import com.davos.core.service.CustomerService;
 
 @Service
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -28,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService{
 
 		List<Customer> customers = customerRepository.findAll();
 		List<CustomerDTO> customerDTOs = new ArrayList<>();
-		
+
 		for (Customer customer : customers) {
 			customerDTOs.add(mapper.customerToCustomerDTO(customer));
 		}
@@ -37,37 +37,40 @@ public class CustomerServiceImpl implements CustomerService{
 
 	}
 
-	public CustomerDTO getByName(String name) {
+	public CustomerDTO getCustomer(String name) {
 		return mapper.customerToCustomerDTO(customerRepository.findByName(name));
 	}
 
-	public CustomerDTO getById(int id) {
+	public CustomerDTO getCustomer(int id) {
 		return mapper.customerToCustomerDTO(customerRepository.findById(id));
 	}
 
-	public boolean createOrUpdate(Customer customer) {
-		try {
-			customerRepository.save(customer);
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+	public void createOrUpdate(CustomerDTO customerDTO) {
+
+		Customer customer = customerDTO.toCustomer();
+		
+		if (customer == null) {
+			throw new NullEntityException("Entity of type 'Customer.class' cannot be saved or updated because is null");
 		}
+		
+		customerRepository.save(customer);
+		
+
 	}
 
-	public boolean delete(int id) {
-		try {
-			Customer customer = customerRepository.findById(id);
-			customerRepository.delete(customer);
+	public void delete(int id) {
 
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+		Customer customer = customerRepository.findById(id);
+		
+		if (customer == null) {
+			throw new RecordNotFoundException("Entity of type 'Customer.class' cannot be deleted because doesn´t exists");
 		}
+		
+		customerRepository.delete(customer);
+
 	}
 
-	public String bestCustomer(int anio) {
+	public String bestCustomer(int year) {
 
 		String bestCustomer = "";
 		int salesBestCustomer = 0;
@@ -78,7 +81,7 @@ public class CustomerServiceImpl implements CustomerService{
 			List<Sale> sales = customer.getSales();
 			int sold = 0;
 			for (Sale sale : sales) {
-				if (sale.getDate().getYear() == anio) {
+				if (sale.getDate().getYear() == year) {
 					sold += sale.getUnitPrice() * sale.getUnits();
 				}
 			}
