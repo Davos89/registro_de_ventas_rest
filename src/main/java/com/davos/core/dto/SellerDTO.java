@@ -2,6 +2,8 @@ package com.davos.core.dto;
 
 import java.io.Serializable;
 
+import com.davos.core.entity.Seller;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +24,14 @@ public class SellerDTO implements Serializable {
 
 	private String name;
 
-	
+	public SellerDTO(Seller seller) {
+		this.id = seller.getId();
+		this.name = seller.getName();
+	}
+
+	public Seller toSeller() {
+		// TODO Auto-generated method stub
+		return new Seller(this.id, this.name);
+	}
+
 }

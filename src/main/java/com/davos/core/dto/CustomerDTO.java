@@ -2,6 +2,8 @@ package com.davos.core.dto;
 
 import java.io.Serializable;
 
+import com.davos.core.entity.Customer;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,13 @@ public class CustomerDTO implements Serializable {
 
 	private String name;
 
-	
+	public CustomerDTO(Customer customer) {
+		this.id = customer.getId();
+		this.name = customer.getName();
+	}
+
+	public Customer toCustomer() {
+		return new Customer(id, name);
+	}
 
 }
