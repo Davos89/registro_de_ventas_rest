@@ -27,4 +27,6 @@ public interface SaleRepository extends JpaRepository<Sale, Serializable> {
 	public abstract List<Sale> findByGrocery(Grocery grocery);
 	
 	public abstract Page<Sale> findAll(Pageable pageable);
+
+	public abstract List<Sale> findBySellerAndGrocery(Seller seller, Grocery grocery);
 }
