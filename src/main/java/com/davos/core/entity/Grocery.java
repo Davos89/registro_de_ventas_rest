@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -24,7 +23,6 @@ import lombok.ToString;
 @Table(name = "grocery")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Grocery implements Serializable {
 
@@ -47,8 +45,14 @@ public class Grocery implements Serializable {
 	@Column(name = "name")
 	private String name;
 
+	public Grocery(int id, String name) {
+
+		this.id = id;
+		this.name = name;
+	}
+
 	/**
-	 * IMPORTANTE!!!
+	 * IMPORTANT!!!
 	 * @param sale
 	 */
 	public void addSales(Sale sale) {
@@ -59,4 +63,8 @@ public class Grocery implements Serializable {
 		sale.setGrocery(this);
 
 	}
+
+
+
+	
 }

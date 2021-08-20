@@ -14,9 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.davos.core.dto.CustomerDTO;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -25,7 +22,6 @@ import lombok.ToString;
 @Table(name = "seller")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Seller  implements Serializable{
 
@@ -46,7 +42,10 @@ public class Seller  implements Serializable{
 	@Column(name = "name")
 	private String name;
 
-	
+	public Seller(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	/**
 	 * IMPORTANT!!!
@@ -60,6 +59,10 @@ public class Seller  implements Serializable{
 		sale.setSeller(this);
 		
 	}
+
+
+
+	
 
 	
 }

@@ -17,7 +17,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -28,7 +27,6 @@ import lombok.ToString;
 @Table(name = "customer")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @ToString
 public class Customer implements Serializable {
 
@@ -50,9 +48,14 @@ public class Customer implements Serializable {
 	@Size(min = 2,message = "Debe introducir un nombre de al menos dos letras")
 	private String name;
 	
+	public Customer(int id, String name) {
+		this.id=id;
+		this.name=name;
+	}
+	
 
 	/**
-	 * IMPORTANTE!!!
+	 * IMPORTANT!!!
 	 * @param venta 
 	 */
 	public void addSale(Sale sale) {
