@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.davos.core.entity.Customer;
 import com.davos.core.dto.CustomerDTO;
 import com.davos.core.service.CustomerService;
 
@@ -34,34 +33,34 @@ public class CustomerController {
 		return service.bestCustomer(year);
 	}
 	
-	@PutMapping()
-	public boolean updateCustomer(@RequestBody @Valid Customer customer) {
-		return service.createOrUpdate(customer);
+	@PutMapping
+	public void updateCustomer(@RequestBody @Valid CustomerDTO customer) {
+		service.createOrUpdate(customer);
 	}
 	
-	@PostMapping()
-	public boolean createCustomer(@RequestBody @Valid Customer customer) {
-		return service.createOrUpdate(customer);
+	@PostMapping
+	public void createCustomer(@RequestBody @Valid CustomerDTO customer) {
+		service.createOrUpdate(customer);
 	}
 	
 	@DeleteMapping("/{id}")
-	public boolean borrarNota(@PathVariable("id") int id) {
-		return service.delete(id);
+	public void delete(@PathVariable("id") int id) {
+		service.delete(id);
 	}
 	
-	@GetMapping()
+	@GetMapping
 	public List<CustomerDTO> obtenerClientes(){
 		return service.getAll();
 	}
 	
 	@GetMapping("/{name}")
 	public CustomerDTO obtenerClientePorNombre(@PathVariable("name") String name){
-		return service.getByName(name);
+		return service.getCustomer(name);
 	}
 	
 	@GetMapping("/{id}")
 	public CustomerDTO obtenerClientePorId(@PathVariable("id") int id){
-		return service.getById(id);
+		return service.getCustomer(id);
 	}
 	
 }

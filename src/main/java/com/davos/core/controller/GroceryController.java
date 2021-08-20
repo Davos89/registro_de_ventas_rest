@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.davos.core.entity.Grocery;
 import com.davos.core.dto.GroceryDTO;
 import com.davos.core.service.GroceryService;
 
@@ -29,18 +28,18 @@ public class GroceryController {
 	private GroceryService service;
 
 	@PutMapping()
-	public boolean updateGrocery(@RequestBody @Valid Grocery grocery) {
-		return service.createOrUpdate(grocery);
+	public void updateGrocery(@RequestBody @Valid GroceryDTO groceryDTO) {
+		service.createOrUpdate(groceryDTO);
 	}
 	
 	@PostMapping()
-	public boolean actualizarNota(@RequestBody @Valid Grocery grocery) {
-		return service.createOrUpdate(grocery);
+	public void actualizarNota(@RequestBody @Valid GroceryDTO groceryDTO) {
+		service.createOrUpdate(groceryDTO);
 	}
 	
 	@DeleteMapping("/{id}")
-	public boolean borrarNota(@PathVariable("id") int id) {
-		return service.delete(id);
+	public void borrarNota(@PathVariable("id") int id) {
+		service.delete(id);
 	}
 	
 	@GetMapping()
@@ -50,12 +49,12 @@ public class GroceryController {
 	
 	@GetMapping("/{name}")
 	public GroceryDTO obtenerMercaderiaPorNombre(@PathVariable("name") String name){
-		return service.getByName(name);
+		return service.getGrocery(name);
 	}
 	
 	@GetMapping("/{id}")
 	public GroceryDTO obtenerMercaderiaPorId(@PathVariable("id") int id){
-		return service.getById(id);
+		return service.getGrocery(id);
 	}
 	
 }
