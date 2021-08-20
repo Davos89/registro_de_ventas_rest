@@ -21,7 +21,8 @@ public class ApiExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler({
-            NotFoundException.class
+            NotFoundException.class,
+            RecordNotFoundException.class
     })
     @ResponseBody
     public ErrorMessage notFoundRequest(Exception exception) {
@@ -34,7 +35,10 @@ public class ApiExceptionHandler {
             org.springframework.dao.DuplicateKeyException.class,
             org.springframework.web.bind.support.WebExchangeBindException.class,
             org.springframework.http.converter.HttpMessageNotReadableException.class,
-            org.springframework.web.server.ServerWebInputException.class
+            org.springframework.web.server.ServerWebInputException.class,
+            org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class,
+            InvalidEntityException.class,
+            NullEntityException.class
     })
     @ResponseBody
     public ErrorMessage badRequest(Exception exception) {
