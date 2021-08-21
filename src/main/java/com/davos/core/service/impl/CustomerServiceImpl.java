@@ -11,7 +11,6 @@ import com.davos.core.entity.Customer;
 import com.davos.core.entity.Sale;
 import com.davos.core.http_errors.NullEntityException;
 import com.davos.core.http_errors.RecordNotFoundException;
-import com.davos.core.mapper.CustomerMapper;
 import com.davos.core.repository.CustomerRepository;
 import com.davos.core.service.CustomerService;
 
@@ -21,8 +20,6 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	@Autowired
-	private CustomerMapper mapper;
 
 	public List<CustomerDTO> getAll() {
 
@@ -30,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
 		List<CustomerDTO> customerDTOs = new ArrayList<>();
 
 		for (Customer customer : customers) {
-			customerDTOs.add(mapper.customerToCustomerDTO(customer));
+			customerDTOs.add(new CustomerDTO(customer));
 		}
 
 		return customerDTOs;
@@ -38,11 +35,11 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	public CustomerDTO getCustomer(String name) {
-		return mapper.customerToCustomerDTO(customerRepository.findByName(name));
+		return new CustomerDTO(customerRepository.findByName(name));
 	}
 
 	public CustomerDTO getCustomer(int id) {
-		return mapper.customerToCustomerDTO(customerRepository.findById(id));
+		return new CustomerDTO(customerRepository.findById(id));
 	}
 
 	public void createOrUpdate(CustomerDTO customerDTO) {

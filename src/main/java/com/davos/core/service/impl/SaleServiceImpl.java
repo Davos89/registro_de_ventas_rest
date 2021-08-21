@@ -15,7 +15,6 @@ import com.davos.core.entity.Grocery;
 import com.davos.core.entity.Seller;
 import com.davos.core.http_errors.NullEntityException;
 import com.davos.core.http_errors.RecordNotFoundException;
-import com.davos.core.mapper.SaleMapper;
 import com.davos.core.entity.Sale;
 import com.davos.core.dto.SaleByDateDTO;
 import com.davos.core.dto.SaleDTO;
@@ -39,9 +38,6 @@ public class SaleServiceImpl implements SaleService {
 
 	@Autowired
 	private GroceryRepository groceryRepository;
-
-	@Autowired
-	private SaleMapper mapper;
 
 	@Override
 	public List<SaleDTO> getSales(int idCustomer, int year) {
@@ -219,7 +215,7 @@ public class SaleServiceImpl implements SaleService {
 			throw new RecordNotFoundException("Record '" + id + "' not found.");
 		}
 
-		return mapper.saleToSaleDTO(sale);
+		return new SaleDTO(sale);
 
 	}
 
@@ -232,14 +228,14 @@ public class SaleServiceImpl implements SaleService {
 			throw new RecordNotFoundException(
 					"Record not found in date '" + date + "' and customer '" + customer.getId() + "'.");
 		}
-		return mapper.saleToSaleDTO(sale);
+		return new SaleDTO(sale);
 
 	}
 
 	@Override
 	public void createOrUpdate(SaleDTO saleDTO) {
 
-		Sale sale = mapper.saleDTOToSale(saleDTO);
+		Sale sale = saleDTO.toSale();
 		
 		if (sale == null) {
 			throw new NullEntityException("Entity of type '"+ Sale.class +"' cannot be saved or updated because is null");
