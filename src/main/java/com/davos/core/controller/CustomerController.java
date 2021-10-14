@@ -49,17 +49,17 @@ public class CustomerController {
 	}
 	
 	@GetMapping
-	public List<CustomerDTO> obtenerClientes(){
+	public List<CustomerDTO> getCustomers(){
 		return service.getAll();
 	}
 	
 	@GetMapping("/{name}")
-	public CustomerDTO obtenerClientePorNombre(@PathVariable("name") String name){
+	public CustomerDTO getByName(@PathVariable("name") String name){
 		return service.getCustomer(name);
 	}
 	
 	@GetMapping("/{id}")
-	public CustomerDTO obtenerClientePorId(@PathVariable("id") int id){
+	public CustomerDTO getById(@PathVariable("id") int id){
 		return service.getCustomer(id);
 	}
 	

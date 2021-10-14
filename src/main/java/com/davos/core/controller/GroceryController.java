@@ -28,22 +28,22 @@ public class GroceryController {
 	private GroceryService service;
 
 	@PutMapping()
-	public void updateGrocery(@RequestBody @Valid GroceryDTO groceryDTO) {
+	public void update(@RequestBody @Valid GroceryDTO groceryDTO) {
 		service.createOrUpdate(groceryDTO);
 	}
 	
 	@PostMapping()
-	public void actualizarNota(@RequestBody @Valid GroceryDTO groceryDTO) {
+	public void create(@RequestBody @Valid GroceryDTO groceryDTO) {
 		service.createOrUpdate(groceryDTO);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void borrarNota(@PathVariable("id") int id) {
+	public void delete(@PathVariable("id") int id) {
 		service.delete(id);
 	}
 	
 	@GetMapping()
-	public List<GroceryDTO> obtenerMercaderias(){
+	public List<GroceryDTO> getGroceries(){
 		return service.getAll();
 	}
 	
