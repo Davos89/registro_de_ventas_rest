@@ -12,10 +12,12 @@ import com.davos.core.repository.SellerRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -35,18 +37,32 @@ public class SaleDTO implements Serializable {
 	@Autowired
 	private SellerRepository sellerRepository;
 	
+	@Getter
+	@Setter
 	private int id;
 
+	@Getter
+	@Setter
 	private LocalDate date;
 
+	@Getter
+	@Setter
 	private float units;
 
+	@Getter
+	@Setter
 	private int unitPrice;
 
+	@Getter
+	@Setter
 	private int idCustomer;
 
+	@Getter
+	@Setter
 	private int idGrocery;
 
+	@Getter
+	@Setter
 	private int idSeller;
 	
 	public SaleDTO(Sale sale) {
