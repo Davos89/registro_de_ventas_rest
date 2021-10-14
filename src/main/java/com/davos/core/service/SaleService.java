@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.davos.core.dto.SaleByDateDTO;
+import com.davos.core.dto.SaleByMonthDTO;
 import com.davos.core.dto.SaleDTO;
 import com.davos.core.entity.Customer;
 import com.davos.core.entity.Grocery;
@@ -145,5 +146,15 @@ public interface SaleService {
 	 * of a {@code Grocery} for each date in  {@code Set}
 	 */
 	public List<SaleByDateDTO> getSalesByDates(int idGrocery, Set<LocalDate> dates);
+	
+	/**
+	 * 
+	 * @param year
+	 * @param idGrocery
+	 * @return
+	 */
+	public List<SaleByMonthDTO> getSalesByMonth(int year,int idGrocery);
+	
+	
 
 }
