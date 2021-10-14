@@ -55,31 +55,31 @@ public class SaleDTO implements Serializable {
 
 	@Getter
 	@Setter
-	private int idCustomer;
+	private CustomerDTO customer;
 
 	@Getter
 	@Setter
-	private int idGrocery;
+	private GroceryDTO grocery;
 
 	@Getter
 	@Setter
-	private int idSeller;
+	private SellerDTO seller;
 	
 	public SaleDTO(Sale sale) {
 		this.id = sale.getId();
 		this.date = sale.getDate();
 		this.units = sale.getUnits();
 		this.unitPrice = sale.getUnitPrice();
-		this.idCustomer = sale.getCustomer().getId();
-		this.idGrocery = sale.getGrocery().getId();
-		this.idSeller = sale.getSeller().getId();
+		this.customer = new CustomerDTO(sale.getCustomer());
+		this.grocery = new GroceryDTO(sale.getGrocery());
+		this.seller = new SellerDTO(sale.getSeller());
 	}
 	
 	public Sale toSale() {
 		return new Sale(this.id,this.date,this.units,this.unitPrice,
-				customerRepository.findById(this.idCustomer),
-				groceryRepository.findById(this.idGrocery),
-				sellerRepository.findById(this.idSeller));
+				customer.toCustomer(),
+				grocery.toGrocery(),
+				seller.toSeller());
 	}
 
 	

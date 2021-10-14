@@ -103,7 +103,7 @@ public class SaleController {
 	@PostMapping()
 	public void recordSale(@RequestBody @Valid SaleDTO saleDTO) {
 
-		if (saleDTO.getIdCustomer() <= 0 || saleDTO.getIdGrocery() <= 0 || saleDTO.getIdSeller() <= 0
+		if (saleDTO.getCustomer().getId() <= 0 || saleDTO.getGrocery().getId() <= 0 || saleDTO.getSeller().getId() <= 0
 				|| saleDTO.getDate().isBefore(LocalDate.of(2000, 1, 1)) || saleDTO.getUnitPrice() <= 0
 				|| saleDTO.getUnits() <= 0) {
 			throw new InvalidEntityException(
